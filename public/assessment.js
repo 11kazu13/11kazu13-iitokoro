@@ -1,45 +1,19 @@
 'use strict';
 const userNameInput = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
-const resultDivided = document.getElementById('result-area');
-const tweetDivided = document.getElementById('tweet-area');
+const resultArea = document.getElementById('result-area');
+const tweetArea = document.getElementById('tweet-area');
+const tweetHashtag = 'あなたの推し診断';
 
-assessmentButton.onclick = () => {
+assessmentButton.addEventListener('click', () => {
   const userName = userNameInput.value;
   if (userName.length === 0) {
     // 名前が空の時は処理を終了する
     return;
   }
 
-  // 診断結果表示エリアの作成
-  resultDivided.innerText = '';
-  const header = document.createElement('h3');
-  header.innerText = '診断結果';
-  resultDivided.appendChild(header);
-
-  const paragraph = document.createElement('p');
-  const result = assessment(userName);
-  paragraph.innerText = result;
-  resultDivided.appendChild(paragraph);
-
-  // ツイートエリアの作成
-  tweetDivided.innerText = '';
-  const anchor = document.createElement('a');
-  const hrefValue =
-    'https://twitter.com/intent/tweet?button_hashtag=' +
-    encodeURIComponent('あなたの推し診断') +
-    '&ref_src=twsrc%5Etfw';
-  anchor.setAttribute('href', hrefValue);
-  anchor.setAttribute('class', 'twitter-hashtag-button');
-  anchor.setAttribute('data-text', result);
-  anchor.innerText = 'Tweet #あなたの推し診断';
-  tweetDivided.appendChild(anchor);
-
-  // widgets.js の設定
-  const script = document.createElement('script');
-  script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-  tweetDivided.appendChild(script);
-};
+  renderResult(userName);
+});
 
 // 推しの候補リスト
 const oshiList = [
@@ -132,13 +106,13 @@ const oshiList = [
  */
 function assessment(userName) {
   // 全文字のコード番号を取得してそれを足し合わせる
-  let sumOfcharCode = 0;
+  let sumOfCharCode = 0;
   for (let i = 0; i < userName.length; i++) {
-    sumOfcharCode = sumOfcharCode + userName.charCodeAt(i);
+    sumOfCharCode += userName.charCodeAt(i);
   }
 
   // 文字のコード番号の合計を回答の数で割って添字の数値を求める
-  const index = sumOfcharCode % oshiList.length;
+  const index = sumOfCharCode % oshiList.length;
   const oshi = oshiList[index];
 
   const result =
@@ -148,6 +122,47 @@ function assessment(userName) {
     `ぜひ${oshi.name}を推してみてください！`;
 
   return result;
+}
+
+function renderResult(userName) {
+  const result = assessment(userName);
+
+  clearElement(resultArea);
+  resultArea.appendChild(createTextElement('h3', '診断結果'));
+  resultArea.appendChild(createTextElement('p', result));
+
+  clearElement(tweetArea);
+  tweetArea.appendChild(createTweetAnchor(result));
+  appendTwitterScript(tweetArea);
+}
+
+function clearElement(element) {
+  element.replaceChildren();
+}
+
+function createTextElement(tagName, text) {
+  const element = document.createElement(tagName);
+  element.innerText = text;
+  return element;
+}
+
+function createTweetAnchor(result) {
+  const anchor = document.createElement('a');
+  const hrefValue =
+    'https://twitter.com/intent/tweet?button_hashtag=' +
+    encodeURIComponent(tweetHashtag) +
+    '&ref_src=twsrc%5Etfw';
+  anchor.setAttribute('href', hrefValue);
+  anchor.setAttribute('class', 'twitter-hashtag-button');
+  anchor.setAttribute('data-text', result);
+  anchor.innerText = `Tweet #${tweetHashtag}`;
+  return anchor;
+}
+
+function appendTwitterScript(container) {
+  const script = document.createElement('script');
+  script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+  container.appendChild(script);
 }
 
 // テストコード
