@@ -1,18 +1,85 @@
+/* 推し診断 - 紫ベースのカラーテーマ */
 
 body {
-  background-color: #04a6eb;
-  color: #fdffff;
+  background: linear-gradient(135deg, #5e17eb 0%, #9b59b6 50%, #8e44ad 100%);
+  min-height: 100vh;
+  color: #ffffff;
   width: 500px;
   margin-right: auto;
   margin-left: auto;
+  font-family: 'Segoe UI', 'Hiragino Sans', sans-serif;
+  padding: 20px;
 }
-button {
-  padding: 5px 20px;
-  background-color: #337ab7;
-  color: #fdffff;
-  border-color: #2e6da4;
-  border-style: none;
+
+h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 2em;
+  margin-bottom: 10px;
 }
+
+p {
+  font-size: 1.1em;
+  opacity: 0.95;
+}
+
 input {
-  height: 20px;
+  height: 28px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #e056fd;
+  box-shadow: 0 0 12px rgba(224, 86, 253, 0.5);
+}
+
+button {
+  padding: 8px 24px;
+  background: linear-gradient(135deg, #e056fd 0%, #be2edd 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(190, 46, 221, 0.4);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(190, 46, 221, 0.6);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#result-area {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+#result-area h3 {
+  color: #f8e1ff;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+#result-area p {
+  line-height: 1.8;
+  font-size: 1.05em;
+}
+
+#tweet-area {
+  margin-top: 16px;
 }
