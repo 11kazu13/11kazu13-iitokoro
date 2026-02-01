@@ -33,6 +33,12 @@ input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+input[type="email"],
+input[type="password"] {
+  height: 24px;
+  padding: 3px 10px;
+}
+
 input:focus {
   outline: none;
   border-color: #e056fd;
@@ -82,4 +88,14 @@ button:active {
 
 #tweet-area {
   margin-top: 16px;
+}
+
+#user-area {
+    display: none;
+}
+#login-area {
+    display: none;
+}
+#register-area {
+    display: none;
 }
